@@ -4,55 +4,58 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BA.Database.DataContext;
-using BA.Database.Modeles;
 using BA.Database.UnitOfWork;
 using DA.Business.Enteties;
-using DA.Business.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BA.Web.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Users")]
-    public class UsersController : Controller
+    [Route("api/Account")]
+    public class AccountController : Controller
     {
         private UnitOfWork _Unit;
         private IMapper _Mapper;
 
-        public UsersController(DataContext context, IMapper mapper)
+        public AccountController(DataContext context, IMapper mapper)
         {
             _Mapper = mapper;
             _Unit = new UnitOfWork(context);
         }
 
-        // GET: api/Users
+        // GET: api/Account
         [HttpGet]
-        public IEnumerable<UserInfo> Get()
+        public IEnumerable<AccountInfo> Get()
         {
-            var List = _Unit.Users.GetList();
-            var UserInfoList = _Mapper.Map<List<UserInfo>>(List);
-            return UserInfoList;
+            var List = _Unit.Accounts.GetList();
+            var AccountInfoList = _Mapper.Map<List<AccountInfo>>(List);
+            return AccountInfoList;
         }
 
-        // GET: api/Users/5
-        [HttpGet("{id}", Name = "GetUser")]
+        // GET: api/Account/5
+        [HttpGet("{id}", Name = "GetAccount")]
         public string Get(int id)
         {
             return "value";
         }
         
-        // POST: api/Users
+        // POST: api/Account
         [HttpPost]
         public void Post([FromBody]string value)
         {
         }
         
-        // PUT: api/Users/5
+        // PUT: api/Account/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
         {
         }
         
+        // DELETE: api/ApiWithActions/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+        }
     }
 }

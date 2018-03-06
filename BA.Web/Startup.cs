@@ -12,6 +12,7 @@ using BA.Database;
 using BA.Database.DataContext;
 using DA.Business.Repositories;
 using BA.Database.UnitOfWork;
+using AutoMapper;
 
 namespace BA.Web
 {
@@ -32,9 +33,12 @@ namespace BA.Web
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(connection));
 
-
+            var _mapperConfiguration = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new Modeles.Mapper());
+            });
+            services.AddSingleton<IMapper>(sp => _mapperConfiguration.CreateMapper());
             services.AddMvc();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

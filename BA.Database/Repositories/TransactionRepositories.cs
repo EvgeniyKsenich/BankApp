@@ -1,14 +1,13 @@
-﻿
-using DA.Business.Enteties;
-using DA.Business.Repositories;
+﻿using DA.Business.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace BA.Database.Repositories
 {
-    public class TransactionRepositories: ITransaction<TransactionInfo>
+    public class TransactionRepositories : ITransaction<Transaction>
     {
         private DataContext.DataContext db;
         public TransactionRepositories(DataContext.DataContext _context)
@@ -16,14 +15,17 @@ namespace BA.Database.Repositories
             db = _context;
         }
 
-        public IEnumerable<TransactionInfo> GetListForUser(string UserName)
+        public IEnumerable<Transaction> GetListForUser(string UserName)
         {
+            //var User = db.Useers.Where(c => c.UserName == UserName).SingleOrDefault();
+            //var Transaction = User.Tra.SingleOrDefault();
+            //return Account;
             throw new NotImplementedException();
         }
 
-        public TransactionInfo Add(string UserName, TransactionInfo transaction)
+        public Transaction Add(string UserName, Transaction transaction)
         {
             throw new NotImplementedException();
         }
-    }   
+    }
 }

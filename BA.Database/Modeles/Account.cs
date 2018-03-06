@@ -7,21 +7,10 @@ namespace BA.Database.Modeles
 {
     public class Account
     {
-        public Account()
-        {
-            this.Transaction = new HashSet<Transaction>();
-            this.Transaction1 = new HashSet<Transaction>();
-        }
-
         public int Id { get; set; }
         public int UsurId { get; set; }
         public double Balance { get; set; }
 
         public virtual User UserInfo { get; set; }
-
-
-        
-        public virtual ICollection<Transaction> Transaction { get; set; }
-        public virtual ICollection<Transaction> Transaction1 { get; set; }
     }
 }

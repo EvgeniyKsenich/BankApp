@@ -20,26 +20,34 @@ namespace BA.Database.Migrations
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("DA.Business.Enteties.AccountInfo", b =>
+            modelBuilder.Entity("BA.Database.Modeles.Account", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<double>("Balance");
 
+                    b.Property<int?>("UserInfoId");
+
                     b.Property<int>("UsurId");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserInfoId");
+
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("DA.Business.Enteties.TransactionInfo", b =>
+            modelBuilder.Entity("BA.Database.Modeles.Transaction", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AccountInitiator");
+                    b.Property<int?>("AccountInfo1Id");
+
+                    b.Property<int?>("AccountInfoId");
+
+                    b.Property<int?>("AccountInitiator");
 
                     b.Property<int>("AccountRecipient");
 
@@ -51,10 +59,14 @@ namespace BA.Database.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AccountInfo1Id");
+
+                    b.HasIndex("AccountInfoId");
+
                     b.ToTable("Transactions");
                 });
 
-            modelBuilder.Entity("DA.Business.Enteties.UserInfo", b =>
+            modelBuilder.Entity("BA.Database.Modeles.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -74,6 +86,24 @@ namespace BA.Database.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Useers");
+                });
+
+            modelBuilder.Entity("BA.Database.Modeles.Account", b =>
+                {
+                    b.HasOne("BA.Database.Modeles.User", "UserInfo")
+                        .WithMany("AccountInfo")
+                        .HasForeignKey("UserInfoId");
+                });
+
+            modelBuilder.Entity("BA.Database.Modeles.Transaction", b =>
+                {
+                    b.HasOne("BA.Database.Modeles.Account", "AccountInfo1")
+                        .WithMany()
+                        .HasForeignKey("AccountInfo1Id");
+
+                    b.HasOne("BA.Database.Modeles.Account", "AccountInfo")
+                        .WithMany()
+                        .HasForeignKey("AccountInfoId");
                 });
 #pragma warning restore 612, 618
         }

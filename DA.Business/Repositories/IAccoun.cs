@@ -7,8 +7,10 @@ namespace DA.Business.Repositories
 {
     public interface IAccoun<T> where T : class
     {
+        IEnumerable<T> GetList();
+
         T GetAccount(string UserName);
 
-        void Add(T User);
+        void Add(T Account, string UserName);
     }
 }

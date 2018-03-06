@@ -1,4 +1,5 @@
-﻿using DA.Business.Enteties;
+﻿using BA.Database.Modeles;
+using DA.Business.Enteties;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,11 +15,11 @@ namespace BA.Database.DataContext
 
         }
 
-        public DbSet<UserInfo> Useers { get; set; }
+        public DbSet<User> Useers { get; set; }
 
-        public DbSet<AccountInfo> Accounts { get; set; }
+        public DbSet<Account> Accounts { get; set; }
 
-        public DbSet<TransactionInfo> Transactions { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
 
     }
 }
