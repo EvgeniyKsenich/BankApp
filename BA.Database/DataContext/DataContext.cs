@@ -1,5 +1,4 @@
-﻿using BA.Database.Modeles;
-using DA.Business.Enteties;
+﻿using BA.Database.Enteties;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

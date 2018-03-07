@@ -5029,12 +5029,21 @@
           "lib/netstandard1.3/Microsoft.WindowsAzure.Storage.dll": {}
         }
       },
+      "BA.Database.Сommon/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.0",
+        "compile": {
+          "bin/placeholder/BA.Database.Сommon.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BA.Database.Сommon.dll": {}
+        }
+      },
       "DA.Business/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.0",
         "dependencies": {
-          "Microsoft.AspNetCore.All": "2.0.5",
-          "Microsoft.NETCore.App": "2.0.0"
+          "Microsoft.AspNetCore.All": "2.0.5"
         },
         "compile": {
           "bin/placeholder/DA.Business.dll": {}
@@ -13128,6 +13137,11 @@
         "windowsazure.storage.nuspec"
       ]
     },
+    "BA.Database.Сommon/1.0.0": {
+      "type": "project",
+      "path": "../BA.Database.Сommon/BA.Database.Сommon.csproj",
+      "msbuildProject": "../BA.Database.Сommon/BA.Database.Сommon.csproj"
+    },
     "DA.Business/1.0.0": {
       "type": "project",
       "path": "../DA.Business/DA.Business.csproj",
@@ -13136,6 +13150,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
+      "BA.Database.Сommon >= 1.0.0",
       "DA.Business >= 1.0.0",
       "Microsoft.AspNetCore.All >= 2.0.5",
       "Microsoft.EntityFrameworkCore.Relational >= 2.0.1",
@@ -13183,6 +13198,9 @@
           "projectReferences": {
             "D:\\Project\\BankApp\\DA.Business\\DA.Business.csproj": {
               "projectPath": "D:\\Project\\BankApp\\DA.Business\\DA.Business.csproj"
+            },
+            "D:\\Project\\BankApp\\BA.Database.Сommon\\BA.Database.Сommon.csproj": {
+              "projectPath": "D:\\Project\\BankApp\\BA.Database.Сommon\\BA.Database.Сommon.csproj"
             }
           }
         }
@@ -13213,6 +13231,7 @@
             "version": "[2.0.1, )"
           },
           "Microsoft.NETCore.App": {
+            "suppressParent": "All",
             "target": "Package",
             "version": "[2.0.0, )",
             "autoReferenced": true

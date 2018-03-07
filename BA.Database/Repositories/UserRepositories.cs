@@ -1,15 +1,14 @@
-﻿using DA.Business.Enteties;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DA.Business.Repositories;
 using BA.Database.DataContext;
-using BA.Database.Modeles;
+using BA.Database.Enteties;
+using BA.Database.Сommon.Repositories;
 
 namespace BA.Database.Repositories
 {
-    public class UserRepositories: IUser<User>
+    public class UserRepositories: IRepositories<User>
     {
         private DataContext.DataContext db;
         public UserRepositories(DataContext.DataContext _context)
@@ -17,7 +16,7 @@ namespace BA.Database.Repositories
             db = _context;
         }
 
-        public User GetUser(string UserName)
+        public User Get(string UserName)
         {
             var User = db.Useers.Where(c => c.UserName == UserName).SingleOrDefault();
             return User;

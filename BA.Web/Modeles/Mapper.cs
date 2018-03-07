@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using BA.Database.Modeles;
-using DA.Business.Enteties;
+using BA.Database.Enteties;
+using DA.Business.Modeles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +12,9 @@ namespace BA.Web.Modeles
     {
         public Mapper()
         {
-            CreateMap<User, UserInfo>();
-            CreateMap<Account, AccountInfo>();
-            CreateMap<Transaction, TransactionInfo>();
+            CreateMap<User, UserModel>();
+            CreateMap<Account, AccountModel>();
+            CreateMap<Transaction, TransactionModel>();
         }
     }
 }

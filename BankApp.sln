@@ -3,11 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BA.Web", "BA.Web\BA.Web.csproj", "{7596BA50-A052-4B08-9571-C344107FCAA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BA.Web", "BA.Web\BA.Web.csproj", "{7596BA50-A052-4B08-9571-C344107FCAA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BA.Database", "BA.Database\BA.Database.csproj", "{D1425AD7-6C02-4A4E-B14F-1ED54CCD6D7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BA.Database", "BA.Database\BA.Database.csproj", "{D1425AD7-6C02-4A4E-B14F-1ED54CCD6D7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DA.Business", "DA.Business\DA.Business.csproj", "{D4CF5BB2-A772-485E-9029-C715A0B6E08F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DA.Business", "DA.Business\DA.Business.csproj", "{D4CF5BB2-A772-485E-9029-C715A0B6E08F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BA.Database.Сommon", "BA.Database.Сommon\BA.Database.Сommon.csproj", "{8C7C4582-5E98-4D2A-B3CB-DACEBAD654A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BA.Angular", "BA.Angular\BA.Angular.csproj", "{B3D90087-1615-45AE-93A5-204953661736}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,14 @@ Global
 		{D4CF5BB2-A772-485E-9029-C715A0B6E08F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4CF5BB2-A772-485E-9029-C715A0B6E08F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4CF5BB2-A772-485E-9029-C715A0B6E08F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C7C4582-5E98-4D2A-B3CB-DACEBAD654A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C7C4582-5E98-4D2A-B3CB-DACEBAD654A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C7C4582-5E98-4D2A-B3CB-DACEBAD654A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C7C4582-5E98-4D2A-B3CB-DACEBAD654A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3D90087-1615-45AE-93A5-204953661736}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3D90087-1615-45AE-93A5-204953661736}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3D90087-1615-45AE-93A5-204953661736}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3D90087-1615-45AE-93A5-204953661736}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

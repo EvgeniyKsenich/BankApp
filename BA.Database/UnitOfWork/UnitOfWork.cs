@@ -1,8 +1,8 @@
 ﻿using BA.Database.DataContext;
-using BA.Database.Modeles;
+using BA.Database.Enteties;
 using BA.Database.Repositories;
-using DA.Business.Enteties;
-using DA.Business.Repositories;
+using DA.Business.Modeles;
+using BA.Database.Сommon.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,20 +10,19 @@ using System.Threading.Tasks;
 
 namespace BA.Database.UnitOfWork
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IUnitOfWork<User, Account, Transaction>
     {
         private DataContext.DataContext db;
-        //private ITransaction<Transaction> TransactionRepository;
-        private TransactionRepositories TransactionRepository;
-        private IUser<User> UserRepository;
-        private IAccoun<Account> AccounRepository;
+        private IRepositories<Transaction> TransactionRepository;
+        private IRepositories<User> UserRepository;
+        private IRepositories<Account> AccounRepository;
 
         public UnitOfWork(DataContext.DataContext _context)
         {
             db = _context;
         }
 
-        public IUser<User> Users
+        public IRepositories<User> Users
         {
             get
             {
@@ -33,7 +32,7 @@ namespace BA.Database.UnitOfWork
             }
         }
 
-        public IAccoun<Account> Accounts
+        public IRepositories<Account> Accounts
         {
             get
             {
@@ -43,7 +42,7 @@ namespace BA.Database.UnitOfWork
             }
         }
 
-        public TransactionRepositories Transaction
+        public IRepositories<Transaction> Transaction
         {
             get
             {

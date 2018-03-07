@@ -1,14 +1,13 @@
-﻿using BA.Database.Modeles;
-using DA.Business.Enteties;
-using DA.Business.Repositories;
+﻿using BA.Database.Enteties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BA.Database.Сommon.Repositories;
 
 namespace BA.Database.Repositories
 {
-    public class AccountRepositories: IAccoun<Account>
+    public class AccountRepositories: IRepositories<Account>
     {
         private DataContext.DataContext db;
         public AccountRepositories(DataContext.DataContext _context)
@@ -22,16 +21,15 @@ namespace BA.Database.Repositories
             return List;
         }
 
-        public Account GetAccount(string UserName)
+        public Account Get(string UserName)
         {
-            var User = db.Useers.Where(c => c.UserName == UserName).SingleOrDefault();
-            var Account = User.AccountInfo.SingleOrDefault();
+            var Account = db.Accounts.Where(c => c.UserInfo.UserName == UserName).SingleOrDefault();
             return Account;
         }
 
-        public void Add(Account Account, string UserName)
+        public void Add(Account Account)
         {
-            throw new NotImplementedException();
+            db.Accounts.Add(Account);
         }
     }
 }

@@ -1,0 +1,9 @@
+D:\Project\BankApp\BA.Database.Сommon\bin\Debug\netcoreapp2.0\BA.Database.Сommon.deps.json
+D:\Project\BankApp\BA.Database.Сommon\bin\Debug\netcoreapp2.0\BA.Database.Сommon.dll
+D:\Project\BankApp\BA.Database.Сommon\bin\Debug\netcoreapp2.0\BA.Database.Сommon.pdb
+D:\Project\BankApp\BA.Database.Сommon\obj\Debug\netcoreapp2.0\BA.Database.Сommon.csprojResolveAssemblyReference.cache
+D:\Project\BankApp\BA.Database.Сommon\obj\Debug\netcoreapp2.0\BA.Database.Сommon.csproj.CoreCompileInputs.cache
+D:\Project\BankApp\BA.Database.Сommon\obj\Debug\netcoreapp2.0\BA.Database.Сommon.AssemblyInfoInputs.cache
+D:\Project\BankApp\BA.Database.Сommon\obj\Debug\netcoreapp2.0\BA.Database.Сommon.AssemblyInfo.cs
+D:\Project\BankApp\BA.Database.Сommon\obj\Debug\netcoreapp2.0\BA.Database.Сommon.dll
+D:\Project\BankApp\BA.Database.Сommon\obj\Debug\netcoreapp2.0\BA.Database.Сommon.pdb

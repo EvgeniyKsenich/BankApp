@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BA.Database.DataContext;
-using BA.Database.Modeles;
+using BA.Database.Enteties;
 using BA.Database.UnitOfWork;
-using DA.Business.Enteties;
-using DA.Business.Repositories;
+using BA.Database.Сommon.Repositories;
+using DA.Business.Modeles;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,21 +17,21 @@ namespace BA.Web.Controllers
     [Route("api/Users")]
     public class UsersController : Controller
     {
-        private UnitOfWork _Unit;
+        private IUnitOfWork<User, Account, Transaction> _Unit;
         private IMapper _Mapper;
 
-        public UsersController(DataContext context, IMapper mapper)
+        public UsersController(IUnitOfWork<User, Account, Transaction> Unit, IMapper mapper)
         {
             _Mapper = mapper;
-            _Unit = new UnitOfWork(context);
+            _Unit = Unit;
         }
 
         // GET: api/Users
         [HttpGet]
-        public IEnumerable<UserInfo> Get()
+        public IEnumerable<UserModel> Get()
         {
             var List = _Unit.Users.GetList();
-            var UserInfoList = _Mapper.Map<List<UserInfo>>(List);
+            var UserInfoList = _Mapper.Map<List<UserModel>>(List);
             return UserInfoList;
         }
 

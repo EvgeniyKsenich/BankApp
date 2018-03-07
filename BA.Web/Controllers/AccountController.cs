@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BA.Database.DataContext;
+using BA.Database.Enteties;
 using BA.Database.UnitOfWork;
-using DA.Business.Enteties;
+using BA.Database.Сommon.Repositories;
+using DA.Business.Modeles;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,21 +17,21 @@ namespace BA.Web.Controllers
     [Route("api/Account")]
     public class AccountController : Controller
     {
-        private UnitOfWork _Unit;
+        private IUnitOfWork<User, Account, Transaction> _Unit;
         private IMapper _Mapper;
 
-        public AccountController(DataContext context, IMapper mapper)
+        public AccountController(IUnitOfWork<User, Account, Transaction> Unit, IMapper mapper)
         {
             _Mapper = mapper;
-            _Unit = new UnitOfWork(context);
+            _Unit = Unit;
         }
 
         // GET: api/Account
         [HttpGet]
-        public IEnumerable<AccountInfo> Get()
+        public IEnumerable<AccountModel> Get()
         {
             var List = _Unit.Accounts.GetList();
-            var AccountInfoList = _Mapper.Map<List<AccountInfo>>(List);
+            var AccountInfoList = _Mapper.Map<List<AccountModel>>(List);
             return AccountInfoList;
         }
 

@@ -20,21 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
-    <Content Remove="ClientApp\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Data\Context.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\BA.Database.Сommon\BA.Database.Сommon.csproj" />
     <ProjectReference Include="..\BA.Database\BA.Database.csproj" />
     <ProjectReference Include="..\DA.Business\DA.Business.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Data\" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
