@@ -18,7 +18,7 @@ namespace BA.Database.Repositories
 
         public User Get(string UserName)
         {
-            var User = db.Useers.Where(c => c.UserName == UserName).SingleOrDefault();
+            var User = db.Useers.Where(c => c.UserName == UserName).FirstOrDefault();
             return User;
         }
 

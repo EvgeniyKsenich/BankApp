@@ -5,12 +5,10 @@ using System.Threading.Tasks;
 
 namespace BA.Database.Сommon.Repositories
 {
-    public interface IUser<T> where T:class
+    public interface ITransactionRepositories<T> where T : class
     {
-        T GetUser(string Username);
+        IEnumerable<T> GetList(string UserName);
 
-        IEnumerable<T> GetList();
-
-        void Add(T User);
+        void Add(T transaction);
     }
 }

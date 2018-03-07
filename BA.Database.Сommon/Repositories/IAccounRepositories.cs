@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BA.Database.Сommon.Repositories
 {
-    public interface IAccoun<T> where T : class
+    public interface IAccounRepositories<T> where T : class
     {
         IEnumerable<T> GetList();
 

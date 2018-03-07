@@ -12,7 +12,7 @@ namespace BA.Database.Сommon.Repositories
     {
         IRepositories<U> Users { get; }
         IRepositories<A> Accounts { get; }
-        IRepositories<T> Transaction { get; }
+        ITransactionRepositories<T> Transaction { get; }
         void Save();
     }
 }

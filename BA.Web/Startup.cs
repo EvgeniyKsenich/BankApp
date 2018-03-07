@@ -13,6 +13,9 @@ using AutoMapper;
 using BA.Database.Сommon.Repositories;
 using BA.Database.UnitOfWork;
 using BA.Database.Enteties;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using BA.Web.Auth;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BA.Web
 {
@@ -41,6 +44,37 @@ namespace BA.Web
 
             services.AddTransient<IUnitOfWork<User, Account, Transaction>, UnitOfWork>();
 
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.RequireHttpsMetadata = false;
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            // укзывает, будет ли валидироваться издатель при валидации токена
+                            ValidateIssuer = true,
+                            // строка, представляющая издателя
+                            ValidIssuer = AuthOptions.ISSUER,
+
+                            // будет ли валидироваться потребитель токена
+                            ValidateAudience = true,
+                            // установка потребителя токена
+                            ValidAudience = AuthOptions.AUDIENCE,
+                            // будет ли валидироваться время существования
+                            ValidateLifetime = true,
+
+                            // установка ключа безопасности
+                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                            // валидация ключа безопасности
+                            ValidateIssuerSigningKey = true,
+                        };
+                    });
             services.AddMvc();
         }
 
@@ -52,6 +86,12 @@ namespace BA.Web
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors("MyPolicy");
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
+            app.UseAuthentication();
             app.UseMvc();
         }
     }

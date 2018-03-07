@@ -13,7 +13,7 @@ namespace BA.Database.UnitOfWork
     public class UnitOfWork : IUnitOfWork<User, Account, Transaction>
     {
         private DataContext.DataContext db;
-        private IRepositories<Transaction> TransactionRepository;
+        private ITransactionRepositories<Transaction> TransactionRepository;
         private IRepositories<User> UserRepository;
         private IRepositories<Account> AccounRepository;
 
@@ -42,7 +42,7 @@ namespace BA.Database.UnitOfWork
             }
         }
 
-        public IRepositories<Transaction> Transaction
+        public ITransactionRepositories<Transaction> Transaction
         {
             get
             {

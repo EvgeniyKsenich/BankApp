@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BA.Database.Enteties;
 using BA.Database.Сommon.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,24 +24,20 @@ namespace BA.Web.Controllers
             _Unit = Unit;
         }
 
-        // GET: api/Transaction
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [Authorize]
+        [Route("Deposit")]
+        public IActionResult GetBalance(int count)
         {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET: api/Transaction/5
-        [HttpGet("{id}", Name = "GetTransaction")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-        
-        // POST: api/Transaction
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
+            var name = User.Identity.Name;
+            var Account = _Unit.Accounts.Get(name);
+            Account.Balance += count;
+            //////////////////////////////////
+            //                              //
+            // Add transaction loging logic //
+            //                              //
+            //////////////////////////////////
+            _Unit.Save();
+            return Ok();
         }
     }
 }

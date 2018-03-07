@@ -8,7 +8,7 @@ using System.Transactions;
 
 namespace BA.Database.Repositories
 {
-    public class TransactionRepositories : IRepositories<Enteties.Transaction>
+    public class TransactionRepositories : ITransactionRepositories<Enteties.Transaction>
     {
         private DataContext.DataContext db;
         public TransactionRepositories(DataContext.DataContext _context)
@@ -16,13 +16,22 @@ namespace BA.Database.Repositories
             db = _context;
         }
 
-        public Enteties.Transaction Get(string Name)
+        public IEnumerable<Enteties.Transaction> GetList(string Username)
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Enteties.Transaction> GetList()
-        {
+            //var query = from c in db.Useers
+            //            join k in db.Accounts
+            //            on c.UserName equals Username
+            //            join ossss in db.Transactions on 
+            //            select new Enteties.Transaction
+            //            {
+            //                Id = o.Id,
+            //                Summa = o.Summa,
+            //                Date = o.Date,
+            //                AccountInitiator = o.AccountInitiator,
+            //                AccountRecipient = o.AccountRecipient,
+            //                Type = o.Type
+            //            };
+            //return query.ToList();
             throw new NotImplementedException();
         }
 
