@@ -1,11 +1,12 @@
-﻿using System;
+﻿using BA.Database.Сommon.Modeles;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace BA.Database.Enteties
 {
-    public class User
+    public class User : IModel
     {
         public User()
         {

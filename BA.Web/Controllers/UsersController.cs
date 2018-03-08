@@ -7,6 +7,7 @@ using BA.Database.DataContext;
 using BA.Database.Enteties;
 using BA.Database.UnitOfWork;
 using BA.Database.Сommon.Repositories;
+using BA.Web.Modeles;
 using DA.Business.Modeles;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
@@ -28,30 +29,12 @@ namespace BA.Web.Controllers
             _Unit = Unit;
         }
 
-        [Authorize]
-        [HttpPost]
-        [Route("getlogin")]
-        public IActionResult GetLogin()
-        {
-            return Ok($"{User.Identity.Name}");
-        }
-
-        [Authorize]
-        [HttpPost]
-        [Route("getBalance")]
-        public IActionResult GetBalance()
-        {
-            var name = User.Identity.Name;
-            var Account = _Unit.Accounts.Get(name);
-            return Ok($"{Account.Balance}");
-        }
-
         // GET: api/Users
         [HttpGet]
-        public IEnumerable<UserModel> Get()
+        public IEnumerable<UserView> Get()
         {
             var List = _Unit.Users.GetList();
-            var UserInfoList = _Mapper.Map<List<UserModel>>(List);
+            var UserInfoList = _Mapper.Map<List<UserView>>(List);
             return UserInfoList;
         }
 
@@ -71,15 +54,12 @@ namespace BA.Web.Controllers
         }
 
         // GET: api/Users/5
-        [Route("GetUser")]
-        [HttpGet("{UserName}", Name = "GetUser")]
-        public UserModel Get(string UserName)
+        [Authorize]
+        [Route("GetCurrentUser")]
+        public UserView GetCurrentUser()
         {
-            var User_ = _Unit.Users.Get(UserName);
-            if (User_ == null)
-                return null;
-
-            var UserModes_ = _Mapper.Map<UserModel>(User_);
+            var User_ = _Unit.Users.Get(User.Identity.Name);
+            var UserModes_ = _Mapper.Map<UserView>(User_);
             return UserModes_;
         }
 

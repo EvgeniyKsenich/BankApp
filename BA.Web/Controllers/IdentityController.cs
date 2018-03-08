@@ -8,6 +8,7 @@ using AutoMapper;
 using BA.Database.Enteties;
 using BA.Database.Сommon.Repositories;
 using BA.Web.Auth;
+using BA.Web.Modeles;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -28,10 +29,10 @@ namespace BA.Web.Controllers
         }
 
         [Route("token")]
-        public async Task Token()
+        public async Task Token(UserAuth User_)
         {
-            var username = Request.Form["username"];
-            var password = Request.Form["password"];
+            var username = User_.Username;
+            var password = User_.Password;
 
             var identity = GetIdentity(username, password);
             if (identity == null)
@@ -58,7 +59,6 @@ namespace BA.Web.Controllers
                 username = identity.Name
             };
 
-            // сериализация ответа
             Response.ContentType = "application/json";
             await Response.WriteAsync(JsonConvert.SerializeObject(response, new JsonSerializerSettings { Formatting = Formatting.Indented }));
         }

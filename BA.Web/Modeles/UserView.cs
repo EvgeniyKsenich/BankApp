@@ -1,13 +1,13 @@
-﻿using BA.Database.Сommon.Modeles;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace DA.Business.Modeles
+
+namespace BA.Web.Modeles
 {
-    public class UserModel
-    {
+	public class UserView
+	{
         public int Id { get; set; }
 
         public string UserName { get; set; }
@@ -18,8 +18,8 @@ namespace DA.Business.Modeles
 
         public string Email { get; set; }
 
-        public string Password { get; set; }
-
         public DateTime DateOfBirth { get; set; }
+
+        public double Balance { get; set; }
     }
 }

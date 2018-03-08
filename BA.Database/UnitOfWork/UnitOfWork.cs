@@ -10,19 +10,20 @@ using System.Threading.Tasks;
 
 namespace BA.Database.UnitOfWork
 {
-    public class UnitOfWork : IUnitOfWork<User, Account, Transaction>
+    public class UnitOfWork //: IUnitOfWork<User, Account, Transaction>
     {
         private DataContext.DataContext db;
-        private ITransactionRepositories<Transaction> TransactionRepository;
-        private IRepositories<User> UserRepository;
-        private IRepositories<Account> AccounRepository;
+
+        private UserRepositories UserRepository;
+        private AccountRepositories AccounRepository;
+        private TransactionRepositories TransactionRepository;
 
         public UnitOfWork(DataContext.DataContext _context)
         {
             db = _context;
         }
 
-        public IRepositories<User> Users
+        public UserRepositories Users
         {
             get
             {
@@ -32,7 +33,7 @@ namespace BA.Database.UnitOfWork
             }
         }
 
-        public IRepositories<Account> Accounts
+        public AccountRepositories Accounts
         {
             get
             {
@@ -42,7 +43,7 @@ namespace BA.Database.UnitOfWork
             }
         }
 
-        public ITransactionRepositories<Transaction> Transaction
+        public TransactionRepositories Transaction
         {
             get
             {

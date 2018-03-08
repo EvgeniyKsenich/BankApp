@@ -8,7 +8,7 @@ using BA.Database.Сommon.Repositories;
 
 namespace BA.Database.Repositories
 {
-    public class UserRepositories: IRepositories<User>
+    public class UserRepositories : IRepositories<User>
     {
         private DataContext.DataContext db;
         public UserRepositories(DataContext.DataContext _context)

@@ -7,3 +7,5 @@ D:\Project\BankApp\DA.Business\obj\Debug\netcoreapp2.0\DA.Business.AssemblyInfoI
 D:\Project\BankApp\DA.Business\obj\Debug\netcoreapp2.0\DA.Business.AssemblyInfo.cs
 D:\Project\BankApp\DA.Business\obj\Debug\netcoreapp2.0\DA.Business.dll
 D:\Project\BankApp\DA.Business\obj\Debug\netcoreapp2.0\DA.Business.pdb
+D:\Project\BankApp\DA.Business\bin\Debug\netcoreapp2.0\BA.Database.Сommon.dll
+D:\Project\BankApp\DA.Business\bin\Debug\netcoreapp2.0\BA.Database.Сommon.pdb
