@@ -71,10 +71,16 @@ namespace BA.Web.Controllers
         }
 
         // GET: api/Users/5
-        [HttpGet("{id}", Name = "GetUser")]
-        public string Get(int id)
+        [Route("GetUser")]
+        [HttpGet("{UserName}", Name = "GetUser")]
+        public UserModel Get(string UserName)
         {
-            return "value";
+            var User_ = _Unit.Users.Get(UserName);
+            if (User_ == null)
+                return null;
+
+            var UserModes_ = _Mapper.Map<UserModel>(User_);
+            return UserModes_;
         }
 
     }

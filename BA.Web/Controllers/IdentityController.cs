@@ -42,7 +42,7 @@ namespace BA.Web.Controllers
             }
 
             var now = DateTime.UtcNow;
-            // создаем JWT-токен
+            // create JWT-token
             var jwt = new JwtSecurityToken(
                     issuer: AuthOptions.ISSUER,
                     audience: AuthOptions.AUDIENCE,
@@ -65,7 +65,6 @@ namespace BA.Web.Controllers
 
         private ClaimsIdentity GetIdentity(string username, string password)
         {
-            //Person person = people.FirstOrDefault(x => x.Login == username && x.Password == password);
             var person = _Unit.Users.Get(username);
             if (person != null)
             {
@@ -83,7 +82,6 @@ namespace BA.Web.Controllers
                 }
             }
 
-            // если пользователя не найдено
             return null;
         }
     }
