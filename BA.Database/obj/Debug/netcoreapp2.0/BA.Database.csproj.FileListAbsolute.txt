@@ -1,4 +1,3 @@
-D:\Project\BankApp\BA.Database\bin\Debug\netcoreapp2.0\DA.Business.dll
 D:\Project\BankApp\BA.Database\obj\Debug\netcoreapp2.0\BA.Database.csprojResolveAssemblyReference.cache
 D:\Project\BankApp\BA.Database\obj\Debug\netcoreapp2.0\BA.Database.csproj.CoreCompileInputs.cache
 D:\Project\BankApp\BA.Database\obj\Debug\netcoreapp2.0\BA.Database.AssemblyInfoInputs.cache
@@ -6,7 +5,6 @@ D:\Project\BankApp\BA.Database\obj\Debug\netcoreapp2.0\BA.Database.AssemblyInfo.
 D:\Project\BankApp\BA.Database\bin\Debug\netcoreapp2.0\BA.Database.deps.json
 D:\Project\BankApp\BA.Database\bin\Debug\netcoreapp2.0\BA.Database.dll
 D:\Project\BankApp\BA.Database\bin\Debug\netcoreapp2.0\BA.Database.pdb
-D:\Project\BankApp\BA.Database\bin\Debug\netcoreapp2.0\DA.Business.pdb
 D:\Project\BankApp\BA.Database\obj\Debug\netcoreapp2.0\BA.Database.dll
 D:\Project\BankApp\BA.Database\obj\Debug\netcoreapp2.0\BA.Database.pdb
 D:\Project\BankApp\BA.Database\bin\Debug\netcoreapp2.0\BA.Database.Сommon.dll

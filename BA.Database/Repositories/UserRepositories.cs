@@ -18,19 +18,19 @@ namespace BA.Database.Repositories
 
         public User Get(string UserName)
         {
-            var User = db.Useers.Where(c => c.UserName == UserName).FirstOrDefault();
+            var User = db.Users.Where(c => c.UserName == UserName).FirstOrDefault();
             return User;
         }
 
         public IEnumerable<User> GetList()
         {
-            var List = db.Useers.ToList<User>();
+            var List = db.Users.ToList<User>();
             return List;
         }
 
         public void Add(User User)
         {
-            db.Useers.Add(User);
+            db.Users.Add(User);
         }
     }
 }

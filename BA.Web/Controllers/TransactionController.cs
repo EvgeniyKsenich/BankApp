@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using BA.Database.Enteties;
-using BA.Database.UnitOfWork;
-using BA.Database.Сommon.Repositories;
+﻿using DA.Business.Repositories;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BA.Web.Controllers
@@ -16,73 +8,38 @@ namespace BA.Web.Controllers
     [Route("api/Transaction")]
     public class TransactionController : Controller
     {
-        //private IUnitOfWork<User, Account, Transaction> _Unit;
-        private IMapper _Mapper;
-        private UnitOfWork _Unit;
+        private static ITransactionServisesRepositoryes TransactionServises_;
 
-        public TransactionController(UnitOfWork Unit, IMapper mapper)
+        public TransactionController(ITransactionServisesRepositoryes TransactionServises)
         {
-            _Mapper = mapper;
-            _Unit = Unit;
+            TransactionServises_ = TransactionServises;
         }
 
         [Authorize]
         [Route("Deposit")]
-        public IActionResult Deposit(int summa)
+        public IActionResult Deposit(double amount)
         {
-           var name = User.Identity.Name;
-           var Account = _Unit.Accounts.Get(name);
-           Account.Balance += summa;
-           var Trans = new Transaction()
-            {
-                Date = DateTime.Now,
-                Summa = summa,
-                Type = 0,
-                AccountInfoRecipient = Account
-            };
-            _Unit.Transaction.Add(Trans);
-
-            _Unit.Save();
-            return Ok("Ok");
+            var Username = User.Identity.Name;
+            var result = TransactionServises_.Deposit(Username, amount);
+            return Ok(result.ToString());
         }
 
         [Authorize]
         [Route("Withdraw")]
-        public IActionResult Withdraw(int amount)
+        public IActionResult Withdraw(double amount)
         {
-            var name = User.Identity.Name;
-            var Account = _Unit.Accounts.Get(name);
-            if(Account.Balance < amount)
-                return Ok("Not enough money");
-
-            Account.Balance -= amount;
-
-            _Unit.Save();
-            return Ok("Ok");
+            var Username = User.Identity.Name;
+            var result = TransactionServises_.Withdraw(Username, amount);
+            return Ok(result.ToString());
         }
 
         [Authorize]
         [Route("Transfer")]
-        public IActionResult Transfer(int amount, string UserReceiverName)
+        public IActionResult Transfer(double amount, string UserReceiverName)
         {
-            var name = User.Identity.Name;
-            var Account = _Unit.Accounts.Get(name);
-            if (Account.Balance < amount)
-                return Ok("Not enough money");
-
-            var UserReceiver = _Unit.Accounts.Get(UserReceiverName);
-            if(UserReceiver == null)
-                return Ok("404 User receiver not found");
-
-            Account.Balance -= amount;
-            UserReceiver.Balance += amount;
-            //////////////////////////////////
-            //                              //
-            // Add transaction loging logic //
-            //                              //
-            //////////////////////////////////
-            _Unit.Save();
-            return Ok("Ok");
+            var Username = User.Identity.Name;
+            var result = TransactionServises_.Transfer(amount, Username, UserReceiverName);
+            return Ok(result.ToString());
         }
     }
 }

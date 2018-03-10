@@ -27,11 +27,11 @@ namespace BA.Database.Migrations
 
                     b.Property<double>("Balance");
 
-                    b.Property<int?>("UserInfoId");
+                    b.Property<int?>("UserId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserInfoId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Accounts");
                 });
@@ -41,9 +41,9 @@ namespace BA.Database.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("AccountInfoInitiatorId");
+                    b.Property<int>("AccountInitiatorId");
 
-                    b.Property<int?>("AccountInfoRecipientId");
+                    b.Property<int>("AccountRecipientId");
 
                     b.Property<DateTime>("Date");
 
@@ -53,9 +53,9 @@ namespace BA.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountInfoInitiatorId");
+                    b.HasIndex("AccountInitiatorId");
 
-                    b.HasIndex("AccountInfoRecipientId");
+                    b.HasIndex("AccountRecipientId");
 
                     b.ToTable("Transactions");
                 });
@@ -67,37 +67,46 @@ namespace BA.Database.Migrations
 
                     b.Property<DateTime>("DateOfBirth");
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .IsRequired();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
-                    b.Property<string>("Password");
+                    b.Property<string>("Password")
+                        .IsRequired();
 
-                    b.Property<string>("Surname");
+                    b.Property<string>("Surname")
+                        .IsRequired();
 
-                    b.Property<string>("UserName");
+                    b.Property<string>("UserName")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
-                    b.ToTable("Useers");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("BA.Database.Enteties.Account", b =>
                 {
-                    b.HasOne("BA.Database.Enteties.User", "UserInfo")
-                        .WithMany("AccountInfo")
-                        .HasForeignKey("UserInfoId");
+                    b.HasOne("BA.Database.Enteties.User", "User")
+                        .WithMany("Accounts")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("BA.Database.Enteties.Transaction", b =>
                 {
-                    b.HasOne("BA.Database.Enteties.Account", "AccountInfoInitiator")
-                        .WithMany()
-                        .HasForeignKey("AccountInfoInitiatorId");
+                    b.HasOne("BA.Database.Enteties.Account", "AccountInitiator")
+                        .WithMany("Initiator")
+                        .HasForeignKey("AccountInitiatorId")
+                        .HasConstraintName("FK_Initiator")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("BA.Database.Enteties.Account", "AccountInfoRecipient")
-                        .WithMany()
-                        .HasForeignKey("AccountInfoRecipientId");
+                    b.HasOne("BA.Database.Enteties.Account", "AccountRecipient")
+                        .WithMany("Recipient")
+                        .HasForeignKey("AccountRecipientId")
+                        .HasConstraintName("FK_Recipient")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

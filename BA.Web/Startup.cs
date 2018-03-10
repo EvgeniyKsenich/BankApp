@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using BA.Database.DataContext;
 using AutoMapper;
-using BA.Database.Сommon.Repositories;
 using BA.Database.UnitOfWork;
-using BA.Database.Enteties;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using BA.Web.Auth;
 using Microsoft.IdentityModel.Tokens;
+using DA.Business.Repositories;
+using DA.Business.Servises;
+using DA.Business.Utiles;
+using BA.Business.Repositories;
+using BA.Business.Utiles;
+using BA.Business.Modeles;
 
 namespace BA.Web
 {
@@ -42,7 +41,13 @@ namespace BA.Web
             });
             services.AddSingleton<IMapper>(sp => _mapperConfiguration.CreateMapper());
 
-            services.AddTransient<IUnitOfWork<User, Account, Transaction>, UnitOfWork>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<ITransactionServisesRepositoryes, TransactionServises>();
+            services.AddTransient<IUserServises, UserServises>();
+            services.AddTransient<IViewModelEngine, ViewModelEngine>();
+            services.AddTransient<IPasswordEngine, PasswordEngine>();
+
+            services.Configure<Identity>(Configuration.GetSection("Identity"));
 
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
@@ -51,27 +56,29 @@ namespace BA.Web
                        .AllowAnyHeader();
             }));
 
+            var Identity = new Identity()
+            {
+                Audience = Configuration.GetValue<string>("Identity:Audience"),
+                Key = Configuration.GetValue<string>("Identity:KEY"),
+                LifeTime = Configuration.GetValue<int>("Identity:LifeTime"),
+                Publisher = Configuration.GetValue<string>("Identity:Publisher"),
+                Salt = Configuration.GetValue<string>("Identity:Salt")
+            };
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
                     {
                         options.RequireHttpsMetadata = false;
                         options.TokenValidationParameters = new TokenValidationParameters
-                        {
-                            // укзывает, будет ли валидироваться издатель при валидации токена
+                        { 
                             ValidateIssuer = true,
-                            // строка, представляющая издателя
-                            ValidIssuer = AuthOptions.ISSUER,
+                            ValidIssuer = Identity.Publisher,
 
-                            // будет ли валидироваться потребитель токена
                             ValidateAudience = true,
-                            // установка потребителя токена
-                            ValidAudience = AuthOptions.AUDIENCE,
-                            // будет ли валидироваться время существования
-                            ValidateLifetime = true,
+                            ValidAudience = Identity.Audience,
 
-                            // установка ключа безопасности
-                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-                            // валидация ключа безопасности
+                            ValidateLifetime = true,
+                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(Identity.Key),
                             ValidateIssuerSigningKey = true,
                         };
                     });

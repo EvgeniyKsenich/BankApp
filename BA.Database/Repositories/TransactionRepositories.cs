@@ -18,21 +18,10 @@ namespace BA.Database.Repositories
 
         public IEnumerable<Enteties.Transaction> GetList(string Username)
         {
-            //var query = from c in db.Useers
-            //            join k in db.Accounts
-            //            on c.UserName equals Username
-            //            join ossss in db.Transactions on 
-            //            select new Enteties.Transaction
-            //            {
-            //                Id = o.Id,
-            //                Summa = o.Summa,
-            //                Date = o.Date,
-            //                AccountInitiator = o.AccountInitiator,
-            //                AccountRecipient = o.AccountRecipient,
-            //                Type = o.Type
-            //            };
-            //return query.ToList();
-            throw new NotImplementedException();
+            var TransactionsList = db.Transactions.Where(c=>
+            (c.AccountInitiator.User.UserName == Username) ||
+            (c.AccountRecipient.User.UserName == Username));
+            return TransactionsList;
         }
 
         public Enteties.Transaction Get(string Username)

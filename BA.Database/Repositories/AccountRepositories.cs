@@ -23,7 +23,7 @@ namespace BA.Database.Repositories
 
         public Account Get(string UserName)
         {
-            var Account = db.Accounts.Where(c => c.UserInfo.UserName == UserName).SingleOrDefault();
+            var Account = db.Accounts.Where(c => c.User.UserName == UserName).SingleOrDefault();
             return Account;
         }
 

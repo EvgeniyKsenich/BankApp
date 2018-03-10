@@ -9,7 +9,6 @@
       "BA.Database/1.0.0": {
         "dependencies": {
           "BA.Database.Сommon": "1.0.0",
-          "DA.Business": "1.0.0",
           "Microsoft.AspNetCore.All": "2.0.5",
           "Microsoft.EntityFrameworkCore.Relational": "2.0.1",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.0.1",
@@ -3413,15 +3412,6 @@
         "runtime": {
           "BA.Database.Сommon.dll": {}
         }
-      },
-      "DA.Business/1.0.0": {
-        "dependencies": {
-          "BA.Database.Сommon": "1.0.0",
-          "Microsoft.AspNetCore.All": "2.0.5"
-        },
-        "runtime": {
-          "DA.Business.dll": {}
-        }
       }
     }
   },
@@ -5560,11 +5550,6 @@
       "hashPath": "windowsazure.storage.8.1.4.nupkg.sha512"
     },
     "BA.Database.Сommon/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "DA.Business/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -9,10 +9,6 @@ namespace DA.Business.Modeles
     {
         public int Id { get; set; }
 
-        public int AccountInitiator { get; set; }
-
-        public int AccountRecipient { get; set; }
-
         public DateTime Date { get; set; }
 
         public double Summa { get; set; }

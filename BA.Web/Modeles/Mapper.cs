@@ -12,9 +12,13 @@ namespace BA.Web.Modeles
     {
         public Mapper()
         {
-            CreateMap<UserModel, User>().ForMember(x => x.AccountInfo, opt => opt.Ignore()); 
+            CreateMap<UserModel, User>().ForMember(x => x.Accounts, opt => opt.Ignore()); 
+
             CreateMap<Account, AccountModel>();
-            CreateMap<Transaction, TransactionModel>();
+
+            CreateMap<TransactionModel, Transaction>();
+                            //.ForMember(x => x.AccountInfoInitiator, opt => opt.Ignore())
+                            //.ForMember(x => x.AccountInfoRecipient, opt => opt.Ignore()); 
         }
     }
 }

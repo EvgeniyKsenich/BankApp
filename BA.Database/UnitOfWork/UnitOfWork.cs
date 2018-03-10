@@ -1,29 +1,25 @@
 ﻿using BA.Database.DataContext;
 using BA.Database.Enteties;
 using BA.Database.Repositories;
-using DA.Business.Modeles;
 using BA.Database.Сommon.Repositories;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BA.Database.UnitOfWork
 {
-    public class UnitOfWork //: IUnitOfWork<User, Account, Transaction>
+    public class UnitOfWork : IUnitOfWork
     {
         private DataContext.DataContext db;
 
-        private UserRepositories UserRepository;
-        private AccountRepositories AccounRepository;
-        private TransactionRepositories TransactionRepository;
+        private IRepositories<User> UserRepository;
+        private IRepositories<Account> AccounRepository;
+        private ITransactionRepositories<Transaction> TransactionRepository;
 
         public UnitOfWork(DataContext.DataContext _context)
         {
             db = _context;
         }
 
-        public UserRepositories Users
+        public IRepositories<User> Users
         {
             get
             {
@@ -33,7 +29,7 @@ namespace BA.Database.UnitOfWork
             }
         }
 
-        public AccountRepositories Accounts
+        public IRepositories<Account> Accounts
         {
             get
             {
@@ -43,7 +39,7 @@ namespace BA.Database.UnitOfWork
             }
         }
 
-        public TransactionRepositories Transaction
+        public ITransactionRepositories<Transaction> Transaction
         {
             get
             {
