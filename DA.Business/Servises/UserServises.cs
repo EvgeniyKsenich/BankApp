@@ -51,6 +51,22 @@ namespace DA.Business.Servises
             return UserViewList;
         }
 
+        public IEnumerable<UserView> GetSafeList(string CurrentUserName)
+        {
+            var UserList = Unit_.Users.GetList();
+            var UserViewList = new List<UserView>();
+            foreach (var user in UserList)
+            {
+                if (user.UserName != CurrentUserName)
+                {
+                    var Model = GetUserViewModel(user);
+                    Model.Balance = 0;
+                    UserViewList.Add(Model);
+                }
+            }
+            return UserViewList;
+        }
+
         public bool Register(UserModel User)
         {
             if (User != null)

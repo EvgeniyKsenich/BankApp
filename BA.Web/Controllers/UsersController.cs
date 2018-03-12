@@ -21,9 +21,10 @@ namespace BA.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IEnumerable<UserView> Get()
         {
-            var Users = UserServises_.GetList();
+            var Users = UserServises_.GetSafeList(User.Identity.Name);
             return Users;
         }
 
@@ -41,12 +42,11 @@ namespace BA.Web.Controllers
             return UserServises_.GetUserViewModel(User.Identity.Name);
         }
 
-        //[Authorize]
+        [Authorize]
         [Route("Transactions")]
         public IEnumerable<TransactionView> GetTransactionList()
         {
-            string Name = "TestUser1";
-            //var Name = User.Identity.Name;
+            var Name = User.Identity.Name;
             return UserServises_.GetTransactionList(Name);
         }
 

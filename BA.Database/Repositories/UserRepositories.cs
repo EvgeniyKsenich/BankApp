@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using BA.Database.DataContext;
+using Microsoft.EntityFrameworkCore;
 using BA.Database.Enteties;
 using BA.Database.Сommon.Repositories;
 
@@ -18,13 +17,17 @@ namespace BA.Database.Repositories
 
         public User Get(string UserName)
         {
-            var User = db.Users.Where(c => c.UserName == UserName).FirstOrDefault();
+            var User = db.Users.Where(c => c.UserName == UserName)
+                .Include( b => b.Accounts)
+                .FirstOrDefault();
             return User;
         }
 
         public IEnumerable<User> GetList()
         {
-            var List = db.Users.ToList<User>();
+            var List = db.Users
+                .Include(b => b.Accounts)
+                .ToList<User>();
             return List;
         }
 

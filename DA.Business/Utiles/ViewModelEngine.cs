@@ -3,21 +3,16 @@ using BA.Database.Enteties;
 using BA.Database.UnitOfWork;
 using DA.Business.Repositories;
 using DA.Business.ViewModel;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace DA.Business.Utiles
 {
     public class ViewModelEngine : IViewModelEngine
     {
-        private IUnitOfWork _Unit;
-
-        public ViewModelEngine(IUnitOfWork Unit)
-        {
-            _Unit = Unit;
-        }
-
         public UserView GetUserViewModel(User User)
         {
-            var Account = _Unit.Accounts.Get(User.UserName);
+            var Account = User.Accounts.ToList().FirstOrDefault();
 
             var UserView = new UserView()
             {

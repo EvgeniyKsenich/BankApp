@@ -1,4 +1,5 @@
-﻿using DA.Business.Modeles;
+﻿using BA.Database.Enteties;
+using DA.Business.Modeles;
 
 namespace DA.Business.Repositories
 {
@@ -7,5 +8,6 @@ namespace DA.Business.Repositories
         bool Deposit(string UserName, double amount);
         bool Withdraw(string UserName, double amount);
         bool Transfer(double amount, string UserInitiatorName, string UserReceiverName);
+        void CreateTransaction(double amount, Account Initiator, Account Receiver, int type);
     }
 }

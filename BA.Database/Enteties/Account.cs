@@ -11,7 +11,8 @@ namespace BA.Database.Enteties
     {
         public Account()
         {
-            //Initiator = new 
+            this.Initiator = new HashSet<Transaction>();
+            this.Recipient = new HashSet<Transaction>();
         }
 
         public int Id { get; set; }
@@ -19,6 +20,7 @@ namespace BA.Database.Enteties
         [Required]
         public double Balance { get; set; }
 
+        public int UserId { get; set; }
         public User User { get; set; }
 
         [InverseProperty("AccountInitiator")]

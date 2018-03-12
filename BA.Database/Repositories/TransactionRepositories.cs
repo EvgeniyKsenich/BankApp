@@ -3,8 +3,8 @@ using BA.Database.Сommon.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Transactions;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace BA.Database.Repositories
 {
@@ -18,7 +18,12 @@ namespace BA.Database.Repositories
 
         public IEnumerable<Enteties.Transaction> GetList(string Username)
         {
-            var TransactionsList = db.Transactions.Where(c=>
+            var TransactionsList = db.Transactions
+                .Include( b=>b.AccountInitiator)
+                    .ThenInclude(c => c.User)
+                .Include( b=>b.AccountRecipient)
+                    .ThenInclude(c => c.User)
+                .Where(c=>
             (c.AccountInitiator.User.UserName == Username) ||
             (c.AccountRecipient.User.UserName == Username));
             return TransactionsList;
@@ -26,13 +31,23 @@ namespace BA.Database.Repositories
 
         public Enteties.Transaction Get(string Username)
         {
-            var ListTransactions = db.Transactions.ToList().OrderBy(x=> x.Date).FirstOrDefault();
+            var ListTransactions = db.Transactions
+                .Include(b => b.AccountInitiator)
+                    .ThenInclude(c => c.User)
+                .Include(b => b.AccountRecipient)
+                    .ThenInclude(c => c.User)
+                .ToList().OrderBy(x=> x.Date).FirstOrDefault();
             return ListTransactions;
         }
 
         public IEnumerable<Enteties.Transaction> GetList()
         {
-            var ListTransactions = db.Transactions.ToList();
+            var ListTransactions = db.Transactions
+                .Include(b => b.AccountInitiator)
+                    .ThenInclude(c => c.User)
+                .Include(b => b.AccountRecipient)
+                    .ThenInclude(c => c.User)
+                .ToList();
             return ListTransactions;
         }
 

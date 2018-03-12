@@ -1,36 +1,39 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpHeaders  } from '@angular/common/http';
-
-import { User } from './Modeles/User';
-
-import { LoginService } from './Servises/LoginService';
+import { User } from './Models/User';
+import { Transaction } from './Models/Transaction';
+import { UserServises } from './Servises/UserServises';
+import { TransactionServises } from './Servises/TransactionServises';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  providers: [LoginService]
+  templateUrl: './template/app.component.html',
+  styleUrls: ['./style/app.component.css'],
+  providers: [UserServises, TransactionServises]
 })
 
-
-
 export class AppComponent {
-  User_:User = new User();
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
+  private UserServises_:UserServises;
+  private TransactionServises_:TransactionServises;
+  private static ApiServerAddress:string = "http://localhost:62733";
 
-  tokenKey:string = "accessToken";
-  url:string = "localhost:62733";
-  
-  constructor(private loginService: LoginService){
+
+  AppComponent(UserServis:UserServises, TransactionServises:TransactionServises){
+    this.UserServises_ = UserServis;
+    this.TransactionServises_ = TransactionServises;
+  }
+
+  public Login(){
 
   }
 
-  login(){
-    this.loginService.login(this.User_, this.url + "/token").subscribe((data: any) => {
-      console.log(data);
-  });
+  public Logout(){
+    
   }
 
+  private GetKey(){
+
+  }
+  private SetKey(){
+
+  }
 }

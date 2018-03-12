@@ -1,13 +1,10 @@
-﻿using BA.Database.Сommon.Modeles;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BA.Database.Enteties
 {
-    public class User : IModel
+    public class User
     {
         public User()
         {
@@ -34,6 +31,6 @@ namespace BA.Database.Enteties
         [Required]
         public DateTime DateOfBirth { get; set; }
 
-        public ICollection<Account> Accounts { get; set; }
+        public virtual ICollection<Account> Accounts { get; set; }
     }
 }

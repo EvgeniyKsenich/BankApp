@@ -27,7 +27,7 @@ namespace BA.Database.Migrations
 
                     b.Property<double>("Balance");
 
-                    b.Property<int?>("UserId");
+                    b.Property<int>("UserId");
 
                     b.HasKey("Id");
 
@@ -91,7 +91,8 @@ namespace BA.Database.Migrations
                 {
                     b.HasOne("BA.Database.Enteties.User", "User")
                         .WithMany("Accounts")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("BA.Database.Enteties.Transaction", b =>
@@ -99,14 +100,12 @@ namespace BA.Database.Migrations
                     b.HasOne("BA.Database.Enteties.Account", "AccountInitiator")
                         .WithMany("Initiator")
                         .HasForeignKey("AccountInitiatorId")
-                        .HasConstraintName("FK_Initiator")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("BA.Database.Enteties.Account", "AccountRecipient")
                         .WithMany("Recipient")
                         .HasForeignKey("AccountRecipientId")
-                        .HasConstraintName("FK_Recipient")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

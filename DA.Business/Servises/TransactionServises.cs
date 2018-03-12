@@ -18,20 +18,29 @@ namespace DA.Business.Servises
             _Unit = Unit;
         }
 
-        public bool Deposit(string UserName, double amount)
+        public void CreateTransaction(double amount, Account Initiator, Account Receiver, int type)
         {
-            var Account = _Unit.Accounts.Get(UserName);
-            Account.Balance += amount;
-
             var Transaction_ = new BA.Database.Enteties.Transaction()
             {
                 Summa = amount,
                 Date = DateTime.Now,
-                Type = 1,
-                AccountRecipient = Account,
-                AccountInitiator = Account
+                Type = type,
+                AccountRecipient = Receiver,
+                AccountInitiator = Initiator
             };
             _Unit.Transaction.Add(Transaction_);
+        }
+
+        public bool Deposit(string UserName, double amount)
+        {
+            var Account = _Unit.Accounts.Get(UserName);
+
+            if (amount < 0)
+                return false;
+
+            Account.Balance += amount;
+
+            CreateTransaction(amount, Account, Account, 1);
 
             _Unit.Save();
             return true;
@@ -40,20 +49,12 @@ namespace DA.Business.Servises
         public bool Withdraw(string UserName, double amount)
         {
             var Account = _Unit.Accounts.Get(UserName);
-            if (Account.Balance < amount)
+            if (Account.Balance < amount || amount < 0)
                 return false;
 
             Account.Balance -= amount;
 
-            var Transaction_ = new BA.Database.Enteties.Transaction()
-            {
-                Summa = amount,
-                Date = DateTime.Now,
-                Type = 2,
-                AccountInitiator = Account,
-                AccountRecipient = Account
-            };
-            _Unit.Transaction.Add(Transaction_);
+            CreateTransaction(amount, Account, Account, 2);
 
             _Unit.Save();
             return true;
@@ -64,23 +65,14 @@ namespace DA.Business.Servises
             var UserInitiator = _Unit.Accounts.Get(UserInitiatorName);
             if (UserInitiator == null)
                 return false;
-            if (UserInitiator.Balance < amount)
+            if (UserInitiator.Balance < amount || amount < 0)
                 return false;
 
             var UserReceiver = _Unit.Accounts.Get(UserReceiverName);
             if (UserReceiver == null)
                 return false;
 
-
-            var Transaction_ = new BA.Database.Enteties.Transaction()
-            {
-                Summa = amount,
-                Date = DateTime.Now,
-                Type = 3,
-                AccountInitiator = UserInitiator,
-                AccountRecipient = UserReceiver
-            };
-            _Unit.Transaction.Add(Transaction_);
+            CreateTransaction(amount, UserInitiator, UserReceiver, 3);
 
             UserInitiator.Balance -= amount;
             UserReceiver.Balance += amount;

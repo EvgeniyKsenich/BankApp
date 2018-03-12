@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BA.Database.Сommon.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace BA.Database.Repositories
 {
@@ -17,13 +18,21 @@ namespace BA.Database.Repositories
 
         public IEnumerable<Account> GetList()
         {
-            var List = db.Accounts.ToList<Account>();
+            var List = db.Accounts
+                 .Include(b => b.Initiator)
+                 .Include(b => b.Recipient)
+                 .Include(b => b.User)
+                 .ToList<Account>();
             return List;
         }
 
         public Account Get(string UserName)
         {
-            var Account = db.Accounts.Where(c => c.User.UserName == UserName).SingleOrDefault();
+            var Account = db.Accounts
+                 .Include(b => b.Initiator)
+                 .Include(b => b.Recipient)
+                 .Include(b => b.User)
+                 .Where(c => c.User.UserName == UserName).SingleOrDefault();
             return Account;
         }
 
