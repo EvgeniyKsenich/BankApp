@@ -33,7 +33,7 @@ namespace BA.Web.Controllers
             PasswordEngine_ = PasswordEngine;
         }
 
-        [Route("token")]
+        [Route("Token")]
         public async Task Token(UserAuth User_)
         {
             var username = User_.Username;

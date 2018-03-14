@@ -18,67 +18,98 @@ namespace DA.Business.Servises
             _Unit = Unit;
         }
 
-        public void CreateTransaction(double amount, Account Initiator, Account Receiver, int type)
+        public Transaction CreateTransaction(double amount, Account initiator, Account receiver, int type)
         {
-            var Transaction_ = new BA.Database.Enteties.Transaction()
+            Transaction transaction = new Transaction();
+            try{
+                transaction = new BA.Database.Enteties.Transaction()
+                {
+                    Summa = amount,
+                    Date = DateTime.Now,
+                    Type = type,
+                    AccountRecipient = receiver,
+                    AccountInitiator = initiator
+                };
+            }
+            catch (Exception exception)
             {
-                Summa = amount,
-                Date = DateTime.Now,
-                Type = type,
-                AccountRecipient = Receiver,
-                AccountInitiator = Initiator
-            };
-            _Unit.Transaction.Add(Transaction_);
+
+            }
+            return transaction;
         }
 
-        public bool Deposit(string UserName, double amount)
+        public bool Deposit(string userName, double amount)
         {
-            var Account = _Unit.Accounts.Get(UserName);
+            try
+            {
+                var account = _Unit.Accounts.Get(userName);
 
-            if (amount < 0)
+                if (amount < 0)
+                    return false;
+
+                account.Balance += amount;
+
+                var transaction_ = CreateTransaction(amount, account, account, 1);
+                _Unit.Transaction.Add(transaction_);
+
+                _Unit.Save();
+                return true;
+            }
+            catch (Exception exception)
+            {
                 return false;
-
-            Account.Balance += amount;
-
-            CreateTransaction(amount, Account, Account, 1);
-
-            _Unit.Save();
-            return true;
+            }
         }
 
         public bool Withdraw(string UserName, double amount)
         {
-            var Account = _Unit.Accounts.Get(UserName);
-            if (Account.Balance < amount || amount < 0)
+            try
+            {
+                var account = _Unit.Accounts.Get(UserName);
+                if (account.Balance < amount || amount < 0)
+                    return false;
+
+                account.Balance -= amount;
+
+                var transaction_ = CreateTransaction(amount, account, account, 2);
+                _Unit.Transaction.Add(transaction_);
+
+                _Unit.Save();
+                return true;
+            }
+            catch (Exception exception)
+            {
                 return false;
-
-            Account.Balance -= amount;
-
-            CreateTransaction(amount, Account, Account, 2);
-
-            _Unit.Save();
-            return true;
+            }
         }
 
-        public bool Transfer(double amount, string UserInitiatorName, string UserReceiverName)
+        public bool Transfer(double amount, string userInitiatorName, string userReceiverName)
         {
-            var UserInitiator = _Unit.Accounts.Get(UserInitiatorName);
-            if (UserInitiator == null)
+            try
+            {
+                var userInitiator = _Unit.Accounts.Get(userInitiatorName);
+                if (userInitiator == null)
+                    return false;
+                if (userInitiator.Balance < amount || amount < 0)
+                    return false;
+
+                var userReceiver = _Unit.Accounts.Get(userReceiverName);
+                if (userReceiver == null)
+                    return false;
+
+                var transaction = CreateTransaction(amount, userInitiator, userReceiver, 3);
+                _Unit.Transaction.Add(transaction);
+
+                userInitiator.Balance -= amount;
+                userReceiver.Balance += amount;
+                _Unit.Save();
+
+                return true;
+            }
+            catch (Exception exception)
+            {
                 return false;
-            if (UserInitiator.Balance < amount || amount < 0)
-                return false;
-
-            var UserReceiver = _Unit.Accounts.Get(UserReceiverName);
-            if (UserReceiver == null)
-                return false;
-
-            CreateTransaction(amount, UserInitiator, UserReceiver, 3);
-
-            UserInitiator.Balance -= amount;
-            UserReceiver.Balance += amount;
-            _Unit.Save();
-
-            return true;
+            }
         }
     }
 }

@@ -8,6 +8,6 @@ namespace DA.Business.Repositories
         bool Deposit(string UserName, double amount);
         bool Withdraw(string UserName, double amount);
         bool Transfer(double amount, string UserInitiatorName, string UserReceiverName);
-        void CreateTransaction(double amount, Account Initiator, Account Receiver, int type);
+        Transaction CreateTransaction(double amount, Account Initiator, Account Receiver, int type);
     }
 }

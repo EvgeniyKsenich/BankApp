@@ -8,19 +8,18 @@ namespace BA.Web.Controllers
     [Route("api/Transaction")]
     public class TransactionController : Controller
     {
-        private static ITransactionServisesRepositoryes TransactionServises_;
+        private ITransactionServisesRepositoryes _transactionServises;
 
         public TransactionController(ITransactionServisesRepositoryes TransactionServises)
         {
-            TransactionServises_ = TransactionServises;
+            _transactionServises = TransactionServises;
         }
 
         [Authorize]
         [Route("Deposit")]
         public IActionResult Deposit(double amount)
         {
-            var Username = User.Identity.Name;
-            var result = TransactionServises_.Deposit(Username, amount);
+            var result = _transactionServises.Deposit(User.Identity.Name, amount);
             return Ok(result.ToString());
         }
 
@@ -28,8 +27,7 @@ namespace BA.Web.Controllers
         [Route("Withdraw")]
         public IActionResult Withdraw(double amount)
         {
-            var Username = User.Identity.Name;
-            var result = TransactionServises_.Withdraw(Username, amount);
+            var result = _transactionServises.Withdraw(User.Identity.Name, amount);
             return Ok(result.ToString());
         }
 
@@ -37,8 +35,7 @@ namespace BA.Web.Controllers
         [Route("Transfer")]
         public IActionResult Transfer(double amount, string UserReceiverName)
         {
-            var Username = User.Identity.Name;
-            var result = TransactionServises_.Transfer(amount, Username, UserReceiverName);
+            var result = _transactionServises.Transfer(amount, User.Identity.Name, UserReceiverName);
             return Ok(result.ToString());
         }
     }

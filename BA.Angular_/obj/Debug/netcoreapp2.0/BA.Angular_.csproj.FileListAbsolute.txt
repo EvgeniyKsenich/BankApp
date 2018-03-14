@@ -1,4 +1,0 @@
-D:\Project\BankApp\BA.Angular_\obj\Debug\netcoreapp2.0\BA.Angular_.csproj.CoreCompileInputs.cache
-D:\Project\BankApp\BA.Angular_\obj\Debug\netcoreapp2.0\BA.Angular_.AssemblyInfoInputs.cache
-D:\Project\BankApp\BA.Angular_\obj\Debug\netcoreapp2.0\BA.Angular_.AssemblyInfo.cs
-D:\Project\BankApp\BA.Angular_\obj\Debug\netcoreapp2.0\BA.Angular_.csprojResolveAssemblyReference.cache

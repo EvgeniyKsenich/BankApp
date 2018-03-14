@@ -40,12 +40,6 @@ namespace BA.Test.Tests
             Assert.AreEqual(ViewUser.Balance, User.Accounts.ToList().FirstOrDefault().Balance);
             Assert.AreEqual(ViewUser.UserName, User.UserName);
         }
-
-        [Test]
-        public void SafeListContainInitiator()
-        {
-            
-        }
     }
 
 }

@@ -9,92 +9,132 @@ using DA.Business.ViewModel;
 using BA.Business.Repositories;
 using Microsoft.Extensions.Options;
 using BA.Business.Modeles;
+using System;
 
 namespace DA.Business.Servises
 {
     public class UserServises : IUserServises
     {
-        private IMapper Mapper_;
-        private IUnitOfWork Unit_;
-        private IViewModelEngine ViewModelEngine_;
-        private IPasswordEngine PasswordEngine_;
-        private IOptions<Identity> Identity_;
+        private IMapper _mapper;
+        private IUnitOfWork _UOF;
+        private IViewModelEngine _viewModelEngine;
+        private IPasswordEngine _passwordEngine;
+        private IOptions<Identity> _identity;
 
         public UserServises(IPasswordEngine PasswordEngine, IUnitOfWork Unit, IMapper mapper, IViewModelEngine ViewModelEngine, IOptions<Identity> Identity)
         {
-            Mapper_ = mapper;
-            Unit_ = Unit;
-            ViewModelEngine_ = ViewModelEngine;
-            PasswordEngine_ = PasswordEngine;
-            Identity_ = Identity;
+            _mapper = mapper;
+            _UOF = Unit;
+            _viewModelEngine = ViewModelEngine;
+            _passwordEngine = PasswordEngine;
+            _identity = Identity;
         }
 
         public UserView GetUserViewModel(string UserName)
         {
-            var User = Unit_.Users.Get(UserName);
-            return ViewModelEngine_.GetUserViewModel(User);
+            try
+            {
+                var user = _UOF.Users.Get(UserName);
+                return _viewModelEngine.GetUserViewModel(user);
+            }
+            catch (Exception exception)
+            {
+                return null;
+            }
         }
 
         public UserView GetUserViewModel(User User)
         {
-            return ViewModelEngine_.GetUserViewModel(User);
+            try{
+                return _viewModelEngine.GetUserViewModel(User);
+            }
+            catch(Exception exception)
+            {
+                return null;
+            }
         }
 
         public IEnumerable<UserView> GetList()
         {
-            var UserList = Unit_.Users.GetList();
-            var UserViewList = new List<UserView>();
-            foreach(var user in UserList)
+            var userViewList = new List<UserView>();
+            try
             {
-                UserViewList.Add(GetUserViewModel(user));
+                var userList = _UOF.Users.GetList();
+                foreach (var user in userList)
+                {
+                    userViewList.Add(GetUserViewModel(user));
+                }
+                return userViewList;
             }
-            return UserViewList;
+            catch(Exception exception)
+            {
+                return userViewList;
+            }
         }
 
-        public IEnumerable<UserView> GetSafeList(string CurrentUserName)
+        public IEnumerable<UserView> GetListForTransactions(string CurrentUserName)
         {
-            var UserList = Unit_.Users.GetList();
-            var UserViewList = new List<UserView>();
-            foreach (var user in UserList)
+            var userViewList = new List<UserView>();
+            try
             {
-                if (user.UserName != CurrentUserName)
+                var userList = _UOF.Users.GetList();
+                foreach (var user in userList)
                 {
-                    var Model = GetUserViewModel(user);
-                    Model.Balance = 0;
-                    UserViewList.Add(Model);
+                    if (user.UserName != CurrentUserName)
+                    {
+                        var Model = GetUserViewModel(user);
+                        Model.Balance = 0;
+                        userViewList.Add(Model);
+                    }
                 }
+                return userViewList;
             }
-            return UserViewList;
+            catch (Exception exception)
+            {
+                return userViewList;
+            }
         }
 
         public bool Register(UserModel User)
         {
-            if (User != null)
+            try
             {
-                var EntetiUser = Mapper_.Map<User>(User);
-                EntetiUser.Password = PasswordEngine_.GetHash( string.Concat(EntetiUser.Password, Identity_.Value.Salt) );
-                EntetiUser.Accounts.Add(new Account()
+                if (User != null)
                 {
-                    Balance = 0
-                });
-                Unit_.Users.Add(EntetiUser);
-                Unit_.Save();
+                    var entetiUser = _mapper.Map<User>(User);
+                    entetiUser.Password = _passwordEngine.GetHash(string.Concat(entetiUser.Password, _identity.Value.Salt));
+                    entetiUser.Accounts.Add(new Account()
+                    {
+                        Balance = 0
+                    });
+                    _UOF.Users.Add(entetiUser);
+                    _UOF.Save();
 
-                return true;
+                    return true;
+                }
+                return false;
             }
-
-            return false;
+            catch (Exception exception)
+            {
+                return false;
+            }
         }
 
         public IEnumerable<TransactionView> GetTransactionList(string Username)
-        {
-            var Transactions = Unit_.Transaction.GetList(Username);
-            var List = new List<TransactionView>();
-            foreach (var item in Transactions)
-            {
-                List.Add(ViewModelEngine_.GetTransactionViewModel(item));
+        {         
+            var list = new List<TransactionView>();
+            try{
+                var transactions = _UOF.Transaction.GetList(Username);
+                foreach (var item in transactions)
+                {
+                    list.Add(_viewModelEngine.GetTransactionViewModel(item));
+                }
+                return list;
             }
-            return List;
+            catch (Exception exception)
+            {
+                return list;
+            }
         }
 
     }

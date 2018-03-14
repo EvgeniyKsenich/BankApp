@@ -1,4 +1,4 @@
-export class User{
+export class UserIdentity{
     Username:string;
     Password:string;
 }

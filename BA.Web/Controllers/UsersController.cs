@@ -13,41 +13,40 @@ namespace BA.Web.Controllers
     [Route("api/Users")]
     public class UsersController : Controller
     {
-        private static IUserServises UserServises_;
+        private IUserServises _userServises;
 
         public UsersController(IUserServises UserServises)
         {
-            UserServises_ = UserServises;
+            _userServises = UserServises;
         }
 
         [HttpGet]
         [Authorize]
         public IEnumerable<UserView> Get()
         {
-            var Users = UserServises_.GetSafeList(User.Identity.Name);
-            return Users;
+            var users = _userServises.GetListForTransactions(User.Identity.Name);
+            return users;
         }
 
         [HttpPost]
-        [Route("register")]
+        [Route("Register")]
         public bool Post([FromBody]UserModel User_)
         {
-            return UserServises_.Register(User_);
+            return _userServises.Register(User_);
         }
 
         [Authorize]
         [Route("GetCurrentUser")]
         public UserView GetCurrentUser()
         {
-            return UserServises_.GetUserViewModel(User.Identity.Name);
+            return _userServises.GetUserViewModel(User.Identity.Name);
         }
 
         [Authorize]
         [Route("Transactions")]
         public IEnumerable<TransactionView> GetTransactionList()
         {
-            var Name = User.Identity.Name;
-            return UserServises_.GetTransactionList(Name);
+            return _userServises.GetTransactionList(User.Identity.Name);
         }
 
     }

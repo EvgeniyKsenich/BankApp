@@ -12,23 +12,23 @@ namespace DA.Business.Utiles
     {
         public UserView GetUserViewModel(User User)
         {
-            var Account = User.Accounts.ToList().FirstOrDefault();
+            var account = User.Accounts.ToList().FirstOrDefault();
 
-            var UserView = new UserView()
+            var userView = new UserView()
             {
                 Id = User.Id,
                 Name = User.Name,
                 Surname = User.Surname,
                 UserName = User.UserName,
-                Balance = Account.Balance
+                Balance = account.Balance
             };
 
-            return UserView;
+            return userView;
         }
 
         public TransactionView GetTransactionViewModel(Transaction Transaction)
         {
-            var TransactionView = new TransactionView()
+            var transactionView = new TransactionView()
             {
                 Id = Transaction.Id,
                 Date = Transaction.Date,
@@ -38,7 +38,7 @@ namespace DA.Business.Utiles
                 AccountInfoRecipient = Transaction.AccountRecipient.User.UserName
             };
 
-            return TransactionView;
+            return transactionView;
         }
     }
 }

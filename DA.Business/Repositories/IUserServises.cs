@@ -13,6 +13,6 @@ namespace DA.Business.Repositories
         IEnumerable<UserView> GetList();
         bool Register(UserModel model);
         IEnumerable<TransactionView> GetTransactionList(string Username);
-        IEnumerable<UserView> GetSafeList(string CurrentUserName);
+        IEnumerable<UserView> GetListForTransactions(string CurrentUserName);
     }
 }
